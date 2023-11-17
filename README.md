@@ -12,3 +12,8 @@ npm install
 ```bash
 export const githubToken = "YOUR_GITHUB_TOKEN";
 ```
+### Then Run:
+```bash
+npm start
+
+```
