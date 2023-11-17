@@ -1,7 +1,7 @@
 import { Octokit } from "@octokit/rest";
-
+import { githubToken } from "./token";
 const octokit = new Octokit({
-  auth: "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",
+  auth: githubToken,
 });
 
 async function showIssues() {
