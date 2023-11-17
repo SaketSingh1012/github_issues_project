@@ -72,7 +72,7 @@ async function updateIssue(issueNumber) {
       `.update-button[data-issue-number="${issueNumber}"]`
     );
     updateButton.disabled = true;
-    updateButton.style.backgroundColor = 'blue';
+    updateButton.style.backgroundColor = "blue";
 
     const issue = await octokit.rest.issues.get({
       owner: "SaketSingh1012",
@@ -106,7 +106,7 @@ async function closeIssue(issueNumber) {
       `.close-button[data-issue-number="${issueNumber}"]`
     );
     closeButton.disabled = true;
-    closeButton.style.backgroundColor = 'red';
+    closeButton.style.backgroundColor = "red";
     await octokit.rest.issues.update({
       owner: "SaketSingh1012",
       repo: "github_issues_project",
