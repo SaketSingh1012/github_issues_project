@@ -3178,7 +3178,7 @@ function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyri
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 var octokit = new _rest.Octokit({
-  auth: "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"
+  auth: "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"
 });
 function showIssues() {
   return _showIssues.apply(this, arguments);
@@ -3303,7 +3303,7 @@ function _updateIssue() {
           _context5.prev = 0;
           updateButton = document.querySelector(".update-button[data-issue-number=\"".concat(issueNumber, "\"]"));
           updateButton.disabled = true;
-          updateButton.style.backgroundColor = 'blue';
+          updateButton.style.backgroundColor = "blue";
           _context5.next = 6;
           return octokit.rest.issues.get({
             owner: "SaketSingh1012",
@@ -3354,7 +3354,7 @@ function _closeIssue() {
           _context6.prev = 0;
           closeButton = document.querySelector(".close-button[data-issue-number=\"".concat(issueNumber, "\"]"));
           closeButton.disabled = true;
-          closeButton.style.backgroundColor = 'red';
+          closeButton.style.backgroundColor = "red";
           _context6.next = 6;
           return octokit.rest.issues.update({
             owner: "SaketSingh1012",
@@ -3409,7 +3409,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "36091" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "34183" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

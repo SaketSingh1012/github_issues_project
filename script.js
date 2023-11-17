@@ -1,7 +1,7 @@
 import { Octokit } from "@octokit/rest";
 
 const octokit = new Octokit({
-  auth: "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",
+  auth: "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",
 });
 
 async function showIssues() {
