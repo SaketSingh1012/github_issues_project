@@ -1,8 +1,12 @@
 import { Octokit } from "@octokit/rest";
 import { githubToken } from "./token";
+import { GitHubApi } from "./GitHubApi";
+
 const octokit = new Octokit({
   auth: githubToken,
 });
+
+const apiClient = new GitHubApi({ token: githubToken });
 
 async function showIssues() {
   try {
@@ -54,7 +58,7 @@ async function createIssue() {
   const body = document.getElementById("issue-body").value;
 
   try {
-    await octokit.rest.issues.create({
+    await apiClient.createIssue({
       owner: "SaketSingh1012",
       repo: "github_issues_project",
       title: title,
@@ -72,7 +76,7 @@ async function updateIssue(issueNumber) {
       `.update-button[data-issue-number="${issueNumber}"]`
     );
     updateButton.disabled = true;
-    updateButton.style.backgroundColor = "blue";
+    updateButton.style.backgroundColor = "grey";
 
     const issue = await octokit.rest.issues.get({
       owner: "SaketSingh1012",
@@ -83,10 +87,10 @@ async function updateIssue(issueNumber) {
     const newTitle = prompt("Enter new title:", issue.data.title);
     const newBody = prompt("Enter new body:", issue.data.body);
 
-    await octokit.rest.issues.update({
+    await apiClient.updateIssue({
       owner: "SaketSingh1012",
       repo: "github_issues_project",
-      issue_number: issueNumber,
+      id: issueNumber,
       title: newTitle,
       body: newBody,
     });
@@ -107,11 +111,11 @@ async function closeIssue(issueNumber) {
     );
     closeButton.disabled = true;
     closeButton.style.backgroundColor = "red";
-    await octokit.rest.issues.update({
+
+    await apiClient.closeIssue({
       owner: "SaketSingh1012",
       repo: "github_issues_project",
-      issue_number: issueNumber,
-      state: "closed",
+      id: issueNumber,
     });
   } catch (error) {
     console.error("Error closing issue:", error);
