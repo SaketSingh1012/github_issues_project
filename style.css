@@ -1,7 +1,7 @@
 body {
   font-family: Arial, sans-serif;
   margin: 20px;
-  background-color: #f4f4f4; /* Add a light background color */
+  background: linear-gradient(to right, #11ab6d, #468a90a3);
 }
 
 h1 {
@@ -11,7 +11,7 @@ h1 {
 
 #create-issue-form {
   margin-bottom: 20px;
-  background-color: #fff; /* White background for the form */
+  background: linear-gradient(to right, #050505, #00eaffa3);
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */

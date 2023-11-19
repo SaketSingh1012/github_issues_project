@@ -17,6 +17,7 @@ async function showIssues() {
 
     const issuesList = document.getElementById("issues-list");
     issuesList.innerHTML = "";
+    issuesList.style.background = 'linear-gradient(to right, #00eaffa3,#050505)';
 
     response.data.forEach((issue) => {
       const issueElement = document.createElement("div");
@@ -84,15 +85,53 @@ async function updateIssue(issueNumber) {
       issue_number: issueNumber,
     });
 
-    const newTitle = prompt("Enter new title:", issue.data.title);
-    const newBody = prompt("Enter new body:", issue.data.body);
+    // Create a form dynamically
+    const form = document.createElement("form");
+    form.innerHTML = `
+      <label for="new-title">New Title:</label>
+      <input type="text" id="new-title" value="${issue.data.title}" required>
+      <label for="new-body">New Body:</label>
+      <textarea id="new-body" required>${issue.data.body}</textarea>
+      <button type="submit">Update</button>
+    `;
+    form.style.display = 'flex';
+    form.style.flexDirection = 'column';
+    form.style.marginTop = '10px';
+    form.style.backgroundColor = 'black';
 
-    await apiClient.updateIssue({
-      owner: "SaketSingh1012",
-      repo: "github_issues_project",
-      id: issueNumber,
-      title: newTitle,
-      body: newBody,
+
+    // Display the form in a dialog or modal
+    const dialog = document.createElement("div");
+    dialog.style.position = 'fixed';
+    dialog.style.top = '50%';
+    dialog.style.left = '50%';
+    dialog.style.transform = 'translate(-50%, -50%)';
+    dialog.style.backgroundColor = 'white';
+    dialog.style.padding = '20px';
+    dialog.style.borderRadius = '8px';
+    dialog.style.border = '2px solid black';
+    dialog.appendChild(form);
+    document.body.appendChild(dialog);
+
+    // Handle form submission
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const newTitle = document.getElementById("new-title").value;
+      const newBody = document.getElementById("new-body").value;
+
+      await apiClient.updateIssue({
+        owner: "SaketSingh1012",
+        repo: "github_issues_project",
+        id: issueNumber,
+        title: newTitle,
+        body: newBody,
+      });
+
+      // Remove the dialog after updating
+      document.body.removeChild(dialog);
+
+      // Refresh the issues
+      showIssues();
     });
   } catch (error) {
     console.error("Error updating issue:", error);
@@ -103,6 +142,7 @@ async function updateIssue(issueNumber) {
     updateButton.disabled = false;
   }
 }
+
 
 async function closeIssue(issueNumber) {
   try {
