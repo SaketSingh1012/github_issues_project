@@ -6,7 +6,7 @@ body {
 
 h1 {
   color: #333;
-  text-align: center; /* Center the heading */
+  text-align: center;
 }
 
 #create-issue-form {
@@ -14,7 +14,8 @@ h1 {
   background: linear-gradient(to right, #050505, #00eaffa3);
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  color:white;
 }
 
 label {
@@ -37,7 +38,7 @@ button {
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.3s ease; /* Add a smooth transition */
+  transition: background-color 0.3s ease;
 }
 
 button:hover {

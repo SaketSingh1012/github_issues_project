@@ -85,7 +85,6 @@ async function updateIssue(issueNumber) {
       issue_number: issueNumber,
     });
 
-    // Create a form dynamically
     const form = document.createElement("form");
     form.innerHTML = `
       <label for="new-title">New Title:</label>
@@ -100,7 +99,6 @@ async function updateIssue(issueNumber) {
     form.style.backgroundColor = 'black';
 
 
-    // Display the form in a dialog or modal
     const dialog = document.createElement("div");
     dialog.style.position = 'fixed';
     dialog.style.top = '50%';
@@ -127,10 +125,8 @@ async function updateIssue(issueNumber) {
         body: newBody,
       });
 
-      // Remove the dialog after updating
       document.body.removeChild(dialog);
 
-      // Refresh the issues
       showIssues();
     });
   } catch (error) {
