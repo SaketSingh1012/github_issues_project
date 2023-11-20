@@ -1,3 +1,6 @@
+import Toastify from "toastify-js";
+import "toastify-js/src/toastify.css";
+
 import { Octokit } from "@octokit/rest";
 import { githubToken } from "./token";
 import { GitHubApi } from "./GitHubApi";
@@ -8,6 +11,24 @@ const octokit = new Octokit({
 
 const apiClient = new GitHubApi({ token: githubToken });
 
+function showToast(message, type) {
+  Toastify({
+    text: message,
+    duration: 2000,
+    destination: "https://github.com/apvarun/toastify-js",
+    newWindow: true,
+    close: true,
+    gravity: "top",
+    position: "left",
+    stopOnFocus: true,
+    style: {
+      background: type === "success" ? "#00b09a" : "#FF6347",
+    },
+    onClick: function () {},
+  }).showToast();
+}
+
+// Function to show issues
 async function showIssues() {
   try {
     const response = await octokit.rest.issues.listForRepo({
@@ -17,7 +38,8 @@ async function showIssues() {
 
     const issuesList = document.getElementById("issues-list");
     issuesList.innerHTML = "";
-    issuesList.style.background = 'linear-gradient(to right, #00eaffa3,#050505)';
+    issuesList.style.background =
+      "linear-gradient(to right, #00eaffa3,#050505)";
 
     response.data.forEach((issue) => {
       const issueElement = document.createElement("div");
@@ -54,6 +76,7 @@ async function showIssues() {
   }
 }
 
+// Function to create an issue
 async function createIssue() {
   const title = document.getElementById("issue-title").value;
   const body = document.getElementById("issue-body").value;
@@ -65,12 +88,17 @@ async function createIssue() {
       title: title,
       body: body,
     });
+
+    showToast("Issue created successfully", "success");
+
     showIssues();
   } catch (error) {
     console.error("Error creating issue:", error);
+    showToast("Error creating issue", "error");
   }
 }
 
+// Function to update an issue
 async function updateIssue(issueNumber) {
   try {
     const updateButton = document.querySelector(
@@ -93,25 +121,23 @@ async function updateIssue(issueNumber) {
       <textarea id="new-body" required>${issue.data.body}</textarea>
       <button type="submit">Update</button>
     `;
-    form.style.display = 'flex';
-    form.style.flexDirection = 'column';
-    form.style.marginTop = '10px';
-    form.style.backgroundColor = 'black';
-
+    form.style.display = "flex";
+    form.style.flexDirection = "column";
+    form.style.marginTop = "10px";
+    form.style.backgroundColor = "black";
 
     const dialog = document.createElement("div");
-    dialog.style.position = 'fixed';
-    dialog.style.top = '50%';
-    dialog.style.left = '50%';
-    dialog.style.transform = 'translate(-50%, -50%)';
-    dialog.style.backgroundColor = 'white';
-    dialog.style.padding = '20px';
-    dialog.style.borderRadius = '8px';
-    dialog.style.border = '2px solid black';
+    dialog.style.position = "fixed";
+    dialog.style.top = "50%";
+    dialog.style.left = "50%";
+    dialog.style.transform = "translate(-50%, -50%)";
+    dialog.style.backgroundColor = "white";
+    dialog.style.padding = "20px";
+    dialog.style.borderRadius = "8px";
+    dialog.style.border = "2px solid black";
     dialog.appendChild(form);
     document.body.appendChild(dialog);
 
-    // Handle form submission
     form.addEventListener("submit", async (event) => {
       event.preventDefault();
       const newTitle = document.getElementById("new-title").value;
@@ -127,10 +153,13 @@ async function updateIssue(issueNumber) {
 
       document.body.removeChild(dialog);
 
+      showToast("Issue updated successfully", "success");
+
       showIssues();
     });
   } catch (error) {
     console.error("Error updating issue:", error);
+    showToast("Error updating issue", "error");
   } finally {
     const updateButton = document.querySelector(
       `.update-button[data-issue-number="${issueNumber}"]`
@@ -139,7 +168,7 @@ async function updateIssue(issueNumber) {
   }
 }
 
-
+// Function to close an issue
 async function closeIssue(issueNumber) {
   try {
     const closeButton = document.querySelector(
@@ -153,8 +182,12 @@ async function closeIssue(issueNumber) {
       repo: "github_issues_project",
       id: issueNumber,
     });
+
+    showToast("Issue closed successfully", "success");
   } catch (error) {
     console.error("Error closing issue:", error);
+    // Show toast for error
+    showToast("Error closing issue", "error");
   } finally {
     const closeButton = document.querySelector(
       `.close-button[data-issue-number="${issueNumber}"]`
