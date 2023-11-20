@@ -4,6 +4,8 @@ import "toastify-js/src/toastify.css";
 import { Octokit } from "@octokit/rest";
 import { githubToken } from "./token";
 import { GitHubApi } from "./GitHubApi";
+const OWNER = "SaketSingh1012";
+const REPO = "github_issues_project";
 
 const octokit = new Octokit({
   auth: githubToken,
@@ -32,8 +34,8 @@ function showToast(message, type) {
 async function showIssues() {
   try {
     const response = await octokit.rest.issues.listForRepo({
-      owner: "SaketSingh1012",
-      repo: "github_issues_project",
+      owner: OWNER,
+      repo: REPO,
     });
 
     const issuesList = document.getElementById("issues-list");
@@ -83,8 +85,8 @@ async function createIssue() {
 
   try {
     await apiClient.createIssue({
-      owner: "SaketSingh1012",
-      repo: "github_issues_project",
+      owner: OWNER,
+      repo: REPO,
       title: title,
       body: body,
     });
@@ -108,8 +110,8 @@ async function updateIssue(issueNumber) {
     updateButton.style.backgroundColor = "grey";
 
     const issue = await octokit.rest.issues.get({
-      owner: "SaketSingh1012",
-      repo: "github_issues_project",
+      owner: OWNER,
+      repo: REPO,
       issue_number: issueNumber,
     });
 
@@ -144,8 +146,8 @@ async function updateIssue(issueNumber) {
       const newBody = document.getElementById("new-body").value;
 
       await apiClient.updateIssue({
-        owner: "SaketSingh1012",
-        repo: "github_issues_project",
+        owner: OWNER,
+        repo: REPO,
         id: issueNumber,
         title: newTitle,
         body: newBody,
@@ -155,7 +157,6 @@ async function updateIssue(issueNumber) {
 
       showToast("Issue updated successfully", "success");
 
-      showIssues();
     });
   } catch (error) {
     console.error("Error updating issue:", error);
@@ -178,8 +179,8 @@ async function closeIssue(issueNumber) {
     closeButton.style.backgroundColor = "red";
 
     await apiClient.closeIssue({
-      owner: "SaketSingh1012",
-      repo: "github_issues_project",
+      owner: OWNER,
+      repo: REPO,
       id: issueNumber,
     });
 
